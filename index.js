@@ -158,6 +158,7 @@ function countByCountry(cities) {
   let countCountry = {};
   for (let city of cities) {
     if (countCountry[city.country]) {
+      // below I am iterating through the cities array and every time I get the same country I add one to the object. 
       countCountry[city.country] += 1;
     } else {
       countCountry[city.country] = 1;
@@ -187,9 +188,10 @@ function getAverageFoundingYearForCapitals(cities) {
   if (foundingYears.length === 0) {
     return 0;
   } else {
+    //.reduce method helps me find the sum of the numbers in the array. I then divide by the length of the array to get the average. 
     let average = foundingYears.reduce((a, b) => a + b) / foundingYears.length;
-    average = average.toFixed(0);
-    average = parseInt(average);
+    average = average.toFixed(0); // adjust the decimal place.
+    average = parseInt(average); // turns the string in to a number/integer
     return average;
   }
 }
