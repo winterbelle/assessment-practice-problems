@@ -28,7 +28,12 @@ const exampleCities = require("./cities");
       "Philadelphia",
     ];
  */
-function getAllCityNames() {}
+function getAllCityNames(cities) {
+  let cityNames = [];
+  // This method allows me to loop through the array and get the name of the different cities in each object with out having to use a for loop. 
+  cityNames = cities.map(city => city.name);
+  return cityNames;
+}
 
 /**
  * getOldestCity()
@@ -41,7 +46,17 @@ function getAllCityNames() {}
  *  getOldestCity(cities);
  *  //> "Mexico City"
  */
-function getOldestCity() {}
+function getOldestCity(cities) {
+  let oldestCity = ''
+  
+  if (!cities.length) {
+    return null;
+  } else {
+  oldestCity = cities.filter(city => city.yearFounded > 0)
+  .map(city => city.name);
+  }
+  return oldestCity[0];
+}
 
 /**
  * findByName()
@@ -65,7 +80,14 @@ function getOldestCity() {}
         id: 't870ol'
     }
  */
-function findByName() {}
+function findByName(cities, name) {
+  let cityObject = {};
+
+  for (let city of cities) {
+    cityObject = name === city.name ? city : null;
+  }
+  return cityObject;
+}
 
 /**
  * filterByCountry()
@@ -87,7 +109,11 @@ function findByName() {}
     ]
     function filterByCountry() {}
 */
-function filterByCountry() {}
+function filterByCountry(cities, country) {
+  let filteredCities = [];
+  filteredCities = cities.filter(city => country.toUpperCase() === city.country.toUpperCase());
+  return filteredCities;
+}
 
 /**
  * findBySportsTeam()
@@ -101,7 +127,16 @@ function filterByCountry() {}
  *  findBySportsTeam(cities, "Cubs")
  *  //> "Chicago"
  */
-function findBySportsTeam() {}
+function findBySportsTeam(cities, teamName) {
+  let cityOfTeam = null;
+  for (let city of cities) {
+    if (city.sportsTeams.includes(teamName)) {
+      cityOfTeam = city.name;
+      
+    }
+  }
+  return cityOfTeam;
+}
 
 /**
  * countByCountry()
@@ -119,7 +154,17 @@ function findBySportsTeam() {}
  *        "Cuba": 1
  *      }
  */
-function countByCountry() {}
+function countByCountry(cities) {
+  let countCountry = {};
+  for (let city of cities) {
+    if (countCountry[city.country]) {
+      countCountry[city.country] += 1;
+    } else {
+      countCountry[city.country] = 1;
+    }
+  }
+  return countCountry;
+}
 
 /**
  * getAverageFoundingYearForCapitals()
@@ -132,7 +177,22 @@ function countByCountry() {}
  *  getAverageFoundingYearForCapitals(cities);
  *  //> 1531
  */
-function getAverageFoundingYearForCapitals() {}
+function getAverageFoundingYearForCapitals(cities) {
+  let foundingYears = [];
+  for (const city of cities) {
+    if (city.nationalCapital || city.stateOrProvinceCapital) {
+      foundingYears.push(city.yearFounded);
+    }
+  }
+  if (foundingYears.length === 0) {
+    return 0;
+  } else {
+    let average = foundingYears.reduce((a, b) => a + b) / foundingYears.length;
+    average = average.toFixed(0);
+    average = parseInt(average);
+    return average;
+  }
+}
 
 /**
  * getAllCitiesFoundedBeforeYear()
@@ -153,7 +213,11 @@ function getAverageFoundingYearForCapitals() {}
       },
     ];
  */
-function getAllCitiesFoundedBeforeYear() {}
+function getAllCitiesFoundedBeforeYear(cities, year) {
+  let citiesFoundedBeforeYear = [];
+citiesFoundedBeforeYear = cities.filter(city => year > city.yearFounded);
+return citiesFoundedBeforeYear;
+}
 
 // Do not change anything below this line.
 module.exports = {
